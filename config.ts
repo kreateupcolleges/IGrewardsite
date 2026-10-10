@@ -12,7 +12,7 @@ export const INSTITUTION_CONFIG = {
   name: "IG Reward Points Site", 
   
   // URL to the college logo (Direct link to image)
-  logoUrl: "https://drive.google.com/thumbnail?id=1jKlSs6QDTSQuf0LlZ9Yu5rPZVIv8G-oM&sz=w500" 
+  logoUrl: "https://drive.google.com/file/d/1TcyyunuqWj09gXTHrZpS6-Zkz40k5bqf/view?usp=sharing" 
 };
 
 /**
