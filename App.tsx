@@ -337,9 +337,50 @@ const AppContent: React.FC = () => {
     }
   };
 
-  const handleParamChange = (key: string, val: string) => {
-    setParams(prev => ({ ...prev, [key]: val }));
-  };
+ 
+const handleParamChange = (key: string, val: string) => {
+  setParams(prev => {
+    if (key === 'batchId') {
+      const newBatch = BATCHES.find(batch => batch.id === val);
+
+      if (!newBatch) {
+        return prev;
+      }
+
+      const semesterIds = Object.keys(newBatch.semesters);
+      const firstSemester = semesterIds[0] ?? '';
+
+      return {
+        ...prev,
+        batchId: val,
+        semesterId: firstSemester,
+        internalId: 'Consolidated',
+        department: '',
+        activity: '',
+      };
+    }
+
+    if (key === 'semesterId') {
+      const batch = BATCHES.find(b => b.id === prev.batchId);
+
+      if (!batch || !batch.semesters[val]) {
+        console.error('Invalid semester selected:', val);
+        return prev;
+      }
+
+      return {
+        ...prev,
+        semesterId: val,
+        internalId: 'Consolidated',
+        department: '',
+        activity: '',
+      };
+    }
+
+    return { ...prev, [key]: val };
+  });
+};
+
 
   const currentBatch = BATCHES.find(b => b.id === params.batchId);
   const currentSemesterLabel = currentBatch?.semesters[params.semesterId]?.label || "Current Semester";
